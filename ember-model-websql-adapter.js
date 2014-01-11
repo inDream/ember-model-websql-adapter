@@ -18,7 +18,7 @@ Ember.WebSQLAdapter = Ember.Adapter.extend({
       },
       function (err) {
         console.error(err);
-        throw new Exception('Database error!');
+        throw new Error('Database error!');
       },
       function () {
         App.dbCreated = true;
@@ -33,7 +33,7 @@ Ember.WebSQLAdapter = Ember.Adapter.extend({
       },
       function (err) {
         console.error(err);
-        throw new Exception('Database error!');
+        throw new Error('Database error!');
       },
       function () {
         self.init();
@@ -89,7 +89,7 @@ Ember.WebSQLAdapter = Ember.Adapter.extend({
   },
 
   createRecord: function (record) {
-    record = record.get("_data");
+    record = record.get ? record.get("_data") : record;
     var tableName = this.tableName;
     var qr = new QueryRapper().tableName(tableName).values(record);
     return this.query(qr.insertQuery(), function (tx, results) {
@@ -98,9 +98,9 @@ Ember.WebSQLAdapter = Ember.Adapter.extend({
   },
 
   saveRecord: function (record) {
+    record = record.get ? record.get("_data") : record;
     var tableName = this.tableName;
-    var data = this.serialize(this, tableName, record);
-    var qr = new QueryRapper({id: record.id}).tableName(tableName).values(data);
+    var qr = new QueryRapper({id: record.id}).tableName(tableName).values(record);
     return this.query(qr.updateQuery(), function (tx, results) {
       return results;
     });
