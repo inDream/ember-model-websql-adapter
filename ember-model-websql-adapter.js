@@ -77,7 +77,7 @@ Ember.WebSQLAdapter = Ember.Adapter.extend({
   },
 
   findQuery: function (kalss, query) {
-    var type = this.tableName;
+    var tableName = this.tableName;
     var qr = new QueryRapper(query).tableName(tableName);
     return this.query(qr.selectQuery(), function (tx, results) {
       var data = [];
