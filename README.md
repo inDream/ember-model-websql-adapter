@@ -21,6 +21,10 @@ Demo is coming soon.
   - `structure` - SQL structure for this table (Todo: auto convert from model's properties)
   - `logQueries` - Log transaction queries
 
+## Adapter API
+Access via App.[Model].adapter:
+  - `reset` - Reset Database
+
 ## Example
 ```javascript
 App.Notice = Em.Model.extend({
